@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "infomax-option-critic"
+version = "0.1.0"
+description = "Code Release for 'Diverse Exploration via InfoMax Options'"
+license = "Apache-2.0"
+authors = ["Yuji Kanagawa <yuji.kngw.80s.revive@gmail.com>"]
+readme = "README.md"  # Markdown files are supported
+repository = "https://github.com/kngwyu/infomax-option-critic"
+homepage = "https://github.com/kngwyu/infomax-option-critic"
+
+[tool.poetry.dependencies]
+python = ">=3.6.1"  # Compatible python versions must be declared here
+torch = "==1.5.0"
+mujoco-maze = { path = './lib/mujoco-maze' }
+rlpy3 = { path = './lib/rlpy3' }
+rainy = { path = './lib/Rainy' }
+
+[tool.black]
+line-length = 88
+target-version = ['py36']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs
+    | \.git
+    | \.mypy_cache
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
