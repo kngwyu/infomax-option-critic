@@ -1,3 +1,7 @@
+""" PPIMOC Implementation
+"""
+
+
 from typing import NamedTuple, Sequence
 
 import numpy as np

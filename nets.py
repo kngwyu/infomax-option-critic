@@ -1,3 +1,6 @@
+""" NN Models for IMOC.
+"""
+
 from typing import Optional, Tuple, Type
 
 import torch

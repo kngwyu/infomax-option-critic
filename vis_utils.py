@@ -1,3 +1,6 @@
+""" Trajectory visualizer and heatmap.
+"""
+
 from typing import Dict, List, Tuple
 
 import numpy as np

@@ -1,3 +1,6 @@
+""" Implementations of our AOC and our PPOC.
+"""
+
 from typing import Sequence
 
 import numpy as np

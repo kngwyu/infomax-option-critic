@@ -1,3 +1,6 @@
+""" Implementation of A2IMOC.
+"""
+
 from typing import Dict, Optional, Tuple
 
 import numpy as np

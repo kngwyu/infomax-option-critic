@@ -1,3 +1,6 @@
+""" Visualization code for Gridworld.
+"""
+
 from typing import Optional, Tuple
 
 import numpy as np

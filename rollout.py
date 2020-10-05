@@ -1,3 +1,6 @@
+""" Storage for collecting online transitions.
+"""
+
 from typing import Tuple
 
 import torch
@@ -61,6 +64,11 @@ class RolloutStorage(A2CRollout[State]):
     def calc_ret_vo(
         self, next_uo: Tensor, vo: Tensor, gamma: float, adv_type: str = "upgoing",
     ) -> Tensor:
+        """
+        UOAE implementation.
+        vo means 'Truncated N-step adantage' anr ret means 'N-step advantage'
+        in Appendix C.5.
+        """
         vo = vo.view(self.nsteps + 1, self.nworkers)
         self.returns[-1] = next_uo
         rewards = self.device.tensor(self.rewards)
@@ -81,16 +89,6 @@ class RolloutStorage(A2CRollout[State]):
             vi = self.values[i][self.worker_indices, opt]
             self.advs[i] = self.returns[i] - vi
 
-    def termination_adv(self, gamma: float, threshold: float = 0.5) -> Tensor:
-        self._term_advs.fill_(0.0)
-        for i in reversed(range(self.nsteps)):
-            beta = self.betas[i][self.worker_indices, self.options[i]]
-            bonus = beta.clamp(min=threshold) - threshold
-            self._term_advs[i] = torch.where(
-                self.opt_terminals[i + 1], bonus, gamma * self._term_advs[i + 1],
-            )
-        return self._term_advs[:-1].flatten()
-
     def calc_gae_vo(
         self,
         next_uo: Tensor,
@@ -99,6 +97,8 @@ class RolloutStorage(A2CRollout[State]):
         lambda_: float,
         adv_type: str = "upgoing",
     ) -> None:
+        """ UGOAE implementation.
+        """
         rewards = self.device.tensor(self.rewards)
         self.advs.fill_(0.0)
         vo_advs = torch.zeros_like(self.advs)
@@ -128,6 +128,9 @@ class RolloutStorage(A2CRollout[State]):
             opt_terminals = self.opt_terminals[i + 1]
 
     def _prepare_xf(self, xf: Tensor, batch_states: Tensor) -> Tuple[Tensor, Tensor]:
+        """ Returns the terminating states of options, per each state.
+            Also returns the mask that indicates not terminated options.
+        """
         state_shape = batch_states.shape[1:]
         states = batch_states.view(self.nsteps, self.nworkers, -1)
         masks = self.device.zeros((self.nsteps + 1, self.nworkers), dtype=torch.bool)
@@ -144,6 +147,8 @@ class RolloutStorage(A2CRollout[State]):
         return torch.cat(res).view(self.nsteps * self.nworkers, *state_shape), masks
 
     def _prepare_xs(self, xs: Tensor, batch_states: Tensor) -> Tensor:
+        """ Returns starting states of options.
+        """
         state_shape = batch_states.shape[1:]
         states = batch_states.view(self.nsteps, self.nworkers, -1)
         xs_last = xs.view(self.nworkers, -1)

@@ -1,3 +1,7 @@
+""" Implemenation of uncertainty-aware option selection
+"""
+
+
 from abc import ABC, abstractmethod
 from typing import Tuple
 

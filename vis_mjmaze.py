@@ -1,3 +1,6 @@
+""" Visualization code for MuJoCo Maze.
+"""
+
 import itertools as it
 from typing import List, Optional, Tuple
 

@@ -1,3 +1,6 @@
+""" Run MuJoCo Maze experiments.
+"""
+
 import os
 
 from typing import Optional
