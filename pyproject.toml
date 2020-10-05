@@ -11,9 +11,9 @@ homepage = "https://github.com/kngwyu/infomax-option-critic"
 [tool.poetry.dependencies]
 python = ">=3.6.1"  # Compatible python versions must be declared here
 torch = "==1.5.0"
-mujoco-maze = { path = './lib/mujoco-maze' }
-rlpy3 = { path = './lib/rlpy3' }
-rainy = { path = './lib/Rainy' }
+mujoco-maze = "==0.1.1"
+rlpy3 = "==2.0.0"
+rainy = "==0.8.0"
 
 [tool.black]
 line-length = 88
