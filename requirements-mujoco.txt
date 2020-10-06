@@ -1,0 +1,2 @@
+mujoco-maze==0.1.1
+mujoco-py==2.0.2.13
