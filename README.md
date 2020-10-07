@@ -1,6 +1,6 @@
 # Code release accompanying 'Diverse Exploration via InfoMax Options'
 
-Arxiv link: (Coming soon)
+Arxiv link: https://arxiv.org/abs/2010.02756
 
 ![MuJoCo Four Rooms](screenshots/mujoco-four-rooms-ppimoc.gif)
 ![MuJoCo Billiard](screenshots/mujoco-billiard-ppimoc.gif)
